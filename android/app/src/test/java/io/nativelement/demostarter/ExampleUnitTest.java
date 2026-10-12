@@ -1,4 +1,4 @@
-package com.getcapacitor.myapp;
+package io.nativelement.demostarter;
 
 import static org.junit.Assert.*;
 

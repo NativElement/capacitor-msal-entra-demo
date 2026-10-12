@@ -114,8 +114,7 @@ keytool -exportcert -alias androiddebugkey -keystore ~/.android/debug.keystore -
 
 ### iOS
 
-1. The plugin ships a podspec, so the iOS project uses **CocoaPods**, not Swift Package Manager
-   (`ios/App/CapApp-SPM.disabled` is intentionally unused).
+1. The plugin ships a podspec, so the iOS project uses **CocoaPods**, not Swift Package Manager.
 2. Copy `native-config/ios/msal_config.example.json` to `ios/App/App/msal_config.json` (git-ignored) and
    fill it in. It is already referenced by the Xcode target.
 3. Select your signing team in Xcode (Signing & Capabilities).
