@@ -4,8 +4,45 @@ An Ionic 9 / Angular 22 / Capacitor 8 demo app for
 [`@nativelement/capacitor-msal-entra`](https://www.npmjs.com/package/@nativelement/capacitor-msal-entra),
 a Capacitor plugin for signing in with **Microsoft Entra External ID (CIAM)** on web, iOS and Android.
 
-The app shows how to sign in, restore a cached session, acquire tokens silently, attach them to API calls
-with an HTTP interceptor, and sign out.
+## What the demo shows
+
+| Plugin API | Where | What it does |
+|---|---|---|
+| `MsalAuth.getAccount()` | [home.page.ts](src/app/home/home.page.ts) `ngOnInit` | Restores a cached account on launch. On web this is also how a finished redirect sign-in surfaces. Returns `{ value: AccountInfo \| null }`. |
+| `MsalAuth.signIn({ scopes })` | [home.page.ts](src/app/home/home.page.ts) `signIn()` | Interactive sign-in / sign-up through Entra's hosted page. Requests the API scopes up front so the user consents once. |
+| `MsalAuth.acquireTokenSilent({ scopes })` | [auth.interceptor.ts](src/app/core/services/auth.interceptor.ts) | Gets a fresh access token for each API call. Falls back to interactive `signIn()` only on `UI_REQUIRED`. |
+| `MsalAuth.signOut()` | [home.page.ts](src/app/home/home.page.ts) `signOut()` | Clears the account and cached tokens. |
+
+The UI is a single sign-in screen: one **Sign-In or Create an Account** button, which swaps to the signed-in
+account's username and a **Sign out** button once authenticated. Google/Apple sign-in needs no extra button;
+add those providers to the user flow and Entra's hosted page shows them.
+
+### Scaffolded (not wired to a backend)
+
+These exist to show where an app-side user profile would plug in. There is no live API behind them.
+
+- **`AuthInterceptor`** ([auth.interceptor.ts](src/app/core/services/auth.interceptor.ts)) attaches
+  `Authorization: Bearer <token>` to requests whose URL starts with `environment.apiBaseUrl`, and never to
+  other hosts. It is registered in `AppModule`.
+- **`UserService`** ([user.service.ts](src/app/core/services/user.service.ts)) is a CRUD client for
+  `/users` against `environment.apiBaseUrl`. Every call fails until you point that at a real API.
+- **`OnboardingPage`** (`/onboarding`) is a "finish creating your account" form, reachable by URL only.
+  It is deliberately not triggered after sign-in, because deciding whether a user is new needs a backend
+  lookup or a tenant-side custom claim. The TODOs in `home.page.ts` and `onboarding.page.ts` list the options.
+
+## Project layout
+
+```
+src/app/
+  home/                 sign-in / sign-out screen (route: /home)
+  onboarding/           placeholder new-user profile form (route: /onboarding)
+  core/services/        AuthInterceptor, UserService
+  core/models/          UserProfile types
+src/environments/       apiBaseUrl and apiScopes
+src/assets/             msal_config(.example).json for web
+native-config/          example msal_config.json for Android and iOS
+android/  ios/          Capacitor native projects
+```
 
 ## Prerequisites
 
@@ -44,11 +81,11 @@ npm start          # http://localhost:4200
 
 `src/assets/msal_config.json` is git-ignored so your tenant details stay local.
 
-Also set `apiBaseUrl` and `apiScopes` in `src/environments/environment*.ts`. The user/API services are
-scaffolded against that URL; there is no live backend behind the default value.
+Also set `apiBaseUrl` and `apiScopes` in `src/environments/environment*.ts`. `apiScopes` are requested at
+sign-in and used by `AuthInterceptor`; `apiBaseUrl` defaults to a placeholder with no backend behind it.
 
-On web, `signIn()` performs a full-page redirect. The returned promise never resolves; the result arrives
-when the app reloads and `restoreSession()` calls `getAccount()`.
+On web, `signIn()` performs a full-page redirect, so the returned promise never resolves. The result arrives
+when the app reloads and `HomePage.ngOnInit` calls `getAccount()`.
 
 ## 3. Native platforms
 

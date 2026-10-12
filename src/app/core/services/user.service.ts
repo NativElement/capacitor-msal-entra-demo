@@ -11,7 +11,7 @@ import {
 /**
  * Scaffolded CRUD client for an app-side "user profile" API.
  *
- * There is no backend behind this yet (see PROJECT_CONTEXT.md) - this class
+ * There is no backend  - this class
  * only exists to show the shape a real implementation would take once one
  * exists: plain HttpClient calls against `environment.apiBaseUrl`, with the
  * bearer token attached automatically by AuthInterceptor (see

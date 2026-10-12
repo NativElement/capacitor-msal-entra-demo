@@ -10,7 +10,7 @@ import { UserService } from '../core/services/user.service';
  * the flow, deliberately kept separate from HomePage so the extension point
  * is obvious. It is NOT wired into automatic navigation (see the TODO in
  * home.page.ts's signIn()) because there is no real backend yet to tell us
- * whether an account is actually new - see PROJECT_CONTEXT.md. Reachable
+ * whether an account is actually new. Reachable
  * directly at /onboarding for manual testing in the meantime.
  *
  * ---------------------------------------------------------------------------

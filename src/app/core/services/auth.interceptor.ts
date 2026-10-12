@@ -47,7 +47,7 @@ export class AuthInterceptor implements HttpInterceptor {
   // - Per-request scopes: right now every call uses environment.apiScopes.
   //   A real app calling multiple APIs would look up scopes per endpoint
   //   (e.g. via an HttpContext token set on the request) instead.
-  // - Multi-account: MsalAuth is single-account today (see PROJECT_CONTEXT.md).
+  // - Multi-account: MsalAuth is single-account.
   //   If you add account switching, this interceptor needs to know which
   //   account's token to acquire.
   private async getFreshToken(): Promise<string> {
