@@ -1,0 +1,60 @@
+.onboarding-content {
+  --background: #f5f4f8;
+}
+
+.onboarding-screen {
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 20px 48px;
+}
+
+.onboarding-card {
+  width: 100%;
+  max-width: 380px;
+  background: #fff;
+  border-radius: 20px;
+  padding: 28px 24px;
+  box-shadow: 0 12px 32px rgba(23, 16, 43, 0.12);
+
+  h2 {
+    margin: 0 0 4px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #17102b;
+  }
+
+  .subtitle {
+    margin: 0 0 20px;
+    font-size: 14px;
+    color: #6b6478;
+    line-height: 1.4;
+  }
+
+  .error-message {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 4px 0 16px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: rgba(235, 68, 90, 0.1);
+    color: #c62f47;
+    font-size: 13px;
+    line-height: 1.4;
+
+    ion-icon {
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+  }
+
+  ion-button {
+    margin-top: 8px;
+    height: 48px;
+    --border-radius: 12px;
+    font-weight: 600;
+    text-transform: none;
+  }
+}

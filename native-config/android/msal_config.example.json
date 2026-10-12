@@ -1,0 +1,14 @@
+{
+  "client_id": "00000000-0000-0000-0000-000000000000",
+  "authorization_user_agent": "DEFAULT",
+  "redirect_uri": "msauth://io.nativelement.demostarter/<URL_ENCODED_SIGNATURE_HASH>",
+  "account_mode": "MULTIPLE",
+  "broker_redirect_uri_registered": false,
+  "authorities": [
+    {
+      "type": "CIAM",
+      "default": true,
+      "authority_url": "https://<your-tenant-subdomain>.ciamlogin.com/<your-tenant-id>"
+    }
+  ]
+}

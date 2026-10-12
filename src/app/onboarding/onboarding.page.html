@@ -1,0 +1,43 @@
+<ion-content [fullscreen]="true" class="onboarding-content">
+  <div class="onboarding-screen">
+    <div class="onboarding-card">
+      <h2>Finish creating your account</h2>
+      <p class="subtitle">
+        We didn't find a profile for {{ account?.username ?? 'this account' }} yet.
+        <!-- TODO: this copy assumes "no profile found" is why the user landed
+             here - true once real detection (see onboarding.page.ts) lands. -->
+      </p>
+
+      <form (ngSubmit)="submit()" #form="ngForm">
+        <ion-item>
+          <ion-label position="stacked">Full name</ion-label>
+          <ion-input name="displayName" [(ngModel)]="displayName" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Email</ion-label>
+          <ion-input name="email" type="email" [(ngModel)]="email" required></ion-input>
+        </ion-item>
+
+        <!-- TODO: this is a two-field placeholder. Swap in whatever fields
+             your product actually needs to collect at sign-up (company,
+             role, marketing consent, etc). -->
+
+        @if (errorMessage) {
+          <p class="error-message">
+            <ion-icon name="alert-circle"></ion-icon>
+            {{ errorMessage }}
+          </p>
+        }
+
+        <ion-button expand="block" type="submit" [disabled]="submitting || form.invalid">
+          @if (submitting) {
+            <ion-spinner name="crescent"></ion-spinner>
+          } @else {
+            <span>Create account</span>
+          }
+        </ion-button>
+      </form>
+    </div>
+  </div>
+</ion-content>

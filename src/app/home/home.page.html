@@ -1,0 +1,67 @@
+<ion-content [fullscreen]="true" class="auth-content">
+  <div class="backdrop"></div>
+
+  <div class="auth-screen">
+    <div class="brand">
+      <div class="brand-mark">
+        <ion-icon name="shield-checkmark"></ion-icon>
+      </div>
+      <h1>MSAL <span>Demo</span></h1>
+      <p class="tagline">Your security is our priority.</p>
+    </div>
+
+    <div class="auth-card">
+      @if (!account) {
+        <h2>Welcome</h2>
+        <p class="subtitle">Sign in or create an account to continue.</p>
+
+        <ion-button
+          expand="block"
+          class="provider-button entra-button"
+          [disabled]="busy"
+          (click)="signIn()"
+        >
+          <ion-icon slot="start" name="logo-microsoft"></ion-icon>
+          @if (!busy) {
+            <span>Sign-In or Create an Account</span>
+          } @else {
+            <ion-spinner name="crescent"></ion-spinner>
+          }
+        </ion-button>
+
+        @if (errorMessage) {
+          <p class="error-message">
+            <ion-icon name="alert-circle"></ion-icon>
+            {{ errorMessage }}
+          </p>
+        }
+
+        <p class="fine-print">
+          By continuing you agree to our Terms of Service and Privacy Policy.
+        </p>
+      } @else {
+        <div class="signed-in">
+          <div class="avatar">
+            <ion-icon name="person-circle"></ion-icon>
+          </div>
+          <h2>You're signed in</h2>
+          <p class="subtitle">{{ account.username ?? account.accountId }}</p>
+
+          <ion-button
+            expand="block"
+            fill="outline"
+            color="danger"
+            [disabled]="busy"
+            (click)="signOut()"
+          >
+            @if (busy) {
+              <ion-spinner name="crescent"></ion-spinner>
+            } @else {
+              <span>Sign out</span>
+            }
+          </ion-button>
+        </div>
+      }
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,7 @@
+{
+  "name": "msal-entra-demo",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
